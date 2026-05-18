@@ -25,9 +25,8 @@ body{font-family:Arial,Helvetica,sans-serif;background:#f0f0f0}
 .slider img{width:100%;flex-shrink:0;display:block;height:auto;max-height:450px;object-fit:cover}
 .announcement{background:#fff;border-bottom:2px solid #1a3a5c;padding:10px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;font-size:14px}
 .announcement .label{background:#ffd700;color:#1a3a5c;font-weight:bold;padding:4px 14px;border-radius:3px;font-size:13px}
-.announcement span{flex:1;color:#c00;font-weight:600;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.announcement .scrolling-text{display:inline-block;animation:scrollText 15s linear infinite;white-space:nowrap;color:#c00;font-weight:600}
 @keyframes scrollText{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
-.announcement .scrolling-text{display:inline-block;animation:scrollText 15s linear infinite;white-space:nowrap}
 .main-content{max-width:1200px;margin:20px auto;padding:0 15px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .card{background:#fff;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,0.1);overflow:hidden}
 .card-header{background:#1a3a5c;color:#fff;padding:10px 16px;font-size:15px;font-weight:bold}
@@ -35,11 +34,3 @@ body{font-family:Arial,Helvetica,sans-serif;background:#f0f0f0}
 .card-body ul{list-style:none;padding:0}
 .card-body ul li{border-bottom:1px solid #eee;padding:6px 0}
 .card-body ul li a{color:#1a5a8c;text-decoration:none}
-.card-body ul li a:hover{text-decoration:underline}
-.card-body ul li::before{content:"\25B8 ";color:#ffd700;font-weight:bold}
-.vc-section{max-width:1200px;margin:20px auto;padding:0 15px}
-.vc-card{background:#fff;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,0.1);overflow:hidden}
-.vc-card .card-body{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
-.vc-card .card-body img{width:130px;border-radius:6px;border:2px solid #1a3a5c}
-.vc-card .card-body p{flex:1;min-width:200px}
-.links-section{max-width:1200px;margin:20px auto;padding
